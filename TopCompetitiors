@@ -1,0 +1,6 @@
+select submissions.hacker_id, name from submissions
+join challenges on submissions.challenge_id=challenges.challenge_id
+join difficulty on difficulty.difficulty_level=challenges.difficulty_level
+join hackers on hackers.hacker_id=submissions.hacker_id
+group by submissions.hacker_id, name having count(case when submissions.score=difficulty.score then 1 END) >1
+order by count(case when submissions.score=difficulty.score then 1 END) DESC, submissions.hacker_id
